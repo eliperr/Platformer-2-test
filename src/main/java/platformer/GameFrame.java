@@ -21,10 +21,12 @@ public class GameFrame extends JFrame implements ComponentListener {
             
     {  
        JFrame jframe=new JFrame();
-       jframe.setSize(xdim,ydim);
+       //jframe.setSize(xdim,ydim);
    
        jframe.add(gamepanel);
        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       jframe.pack();
+      // jframe.setResizable(false);
         jframe.setVisible(true);
     }
     

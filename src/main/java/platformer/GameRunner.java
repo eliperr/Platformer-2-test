@@ -12,7 +12,7 @@ package platformer;
 import javax.swing.JFrame;
 public class GameRunner implements Runnable{
     
-    private final double FPS=60;
+    public final double FPS=60;
   public boolean gameover=false;
   private GamePanel gamePanel;
   private GameFrame gameFrame;

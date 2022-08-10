@@ -14,6 +14,8 @@ import java.awt.event.KeyEvent;
 public class keyboardInputs implements KeyListener{
    
     private GamePanel panel;
+   
+    
     
  public keyboardInputs(GamePanel panel)
  {
@@ -30,8 +32,9 @@ public class keyboardInputs implements KeyListener{
         @Override
     public void keyReleased(KeyEvent e){
         
+       // panel.stopUp
     }
-    
+    //need to reset here!!! set released movements to false then can try animation
     
     public void keyPressed (KeyEvent e)
     { 
@@ -50,7 +53,8 @@ public class keyboardInputs implements KeyListener{
             case 40://down
              panel.Down();
              break;
-       
+           /// default:
+                //panel.reset();
    
         }
     }
