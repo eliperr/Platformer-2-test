@@ -32,10 +32,24 @@ public class keyboardInputs implements KeyListener{
         @Override
     public void keyReleased(KeyEvent e){
         
-       // panel.stopUp
+        switch(e.getKeyCode()){
+            case 38:   //up
+            panel.stopUp();
+            break;
+            case 37: //left
+            panel.stopLeft();
+            break;
+           
+            case 39: //right
+            panel.stopRight();
+            break;
+            case 40://down
+             panel.stopDown();
+             break;
+    }
     }
     //need to reset here!!! set released movements to false then can try animation
-    
+    @Override
     public void keyPressed (KeyEvent e)
     { 
         

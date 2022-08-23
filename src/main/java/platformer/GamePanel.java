@@ -27,7 +27,7 @@ public class GamePanel extends JPanel{
        private  int y=100;
         private int w=100;
         private int h=100;
-        private final int FPS=60;
+        private int FPS=60;
         private boolean touching;
         private Color c=Color.blue;
        private int xdim, ydim;
@@ -40,6 +40,10 @@ public class GamePanel extends JPanel{
     private boolean right=false;
     private boolean up=false;
    private boolean down=false;
+   private int countUp=0;
+   private int ycount=1;
+   private int n=5;//number of frames in animation 
+   private int tick=5;
        
         
     public GamePanel()
@@ -78,13 +82,13 @@ public class GamePanel extends JPanel{
     {
         super.paintComponent(g);
          //paintSquare(g);
-           
+           //System.out.println(up);
         if (img!=null) 
         {
-            
+          
           
               //int xcount=5;
-              int ycount=0;
+              //int ycount=0;
               //BufferedImage sub=img.getSubimage(xcount*64, ycount*40, 64, 40);
              BufferedImage sub= animate();
               g.drawImage(sub,x,y, sub.getWidth()*2, sub.getHeight()*2, null); 
@@ -106,20 +110,58 @@ public class GamePanel extends JPanel{
           
      {
          
-         int ycount=1;
+      
        
       long now=System.currentTimeMillis();
       
-      long time=FPS*5;
+      long time=10000/FPS;
+      
+      
+      
+     
       animationTime=now-prevTime;
+      
+   
+      
+  
       if ( animationTime>=time)
       {
-        animationFrame=(animationFrame+1)%5;
+          
+          if (up) //countUp>0 does using this create a better animation or not?
+            {
+            n=3;
+         
+            ycount=2;
+          //FPS=120;
+            }
+          else if (left || right)
+          {
+              ycount=1;
+          
+              n=6;
+              //System.out.println("moving");
+              
+          }
+          else //idle
+          {
+              n=5;
+              
+              ycount=0;
+              //FPS=60;
+          }
+          
+        animationFrame=(animationFrame+1)%n;
        
       
            prevTime=System.currentTimeMillis();
+           
+           
+                
       }
-      BufferedImage sub=img.getSubimage(animationFrame*64, ycount*40, 64, 40);
+      
+      
+       BufferedImage sub=img.getSubimage(animationFrame*64, ycount*40, 64, 40);
+     
       
       return sub;
          
@@ -141,7 +183,7 @@ public class GamePanel extends JPanel{
             //System.out.println("color");
              c=randColor();
               //c=Color.RED;
-             // g.setColor(c);
+             // g.setColor(c);//
             // g.setColor(c);
            
             
@@ -168,6 +210,7 @@ public class GamePanel extends JPanel{
   {
      
      x-=10;
+     left=true;
     //repaint();
    
   }
@@ -175,6 +218,7 @@ public class GamePanel extends JPanel{
   public void Right()
   {
       x+=10;
+      right=true;
       //repaint();
   }
   
@@ -182,6 +226,8 @@ public class GamePanel extends JPanel{
   {
      
       y-=10; 
+      up=true;
+        //System.out.println(up);
       //repaint();
      
       
@@ -190,6 +236,8 @@ public class GamePanel extends JPanel{
   public void Down()
   {
      y+=10;
+     down=true;
+      //System.out.println(down);
      //repaint();
   }
 /*public void  reset()
@@ -203,7 +251,30 @@ public class GamePanel extends JPanel{
     
 }*/
   
-  
+ public void stopUp()
+ {
+     up=false;
+       //System.out.println(up);
+     
+ }
+ 
+ public void stopDown()
+ {
+     down=false;
+     //System.out.println(down);
+     
+ }
+ public void stopRight()
+ {
+     right=false;
+     
+ }
+ public void stopLeft()
+ {
+    left=false;
+     
+ }
+ 
   public static Color randColor()
   {  int red=(int) (255*Math.random());
      int green=(int) (255*Math.random());
