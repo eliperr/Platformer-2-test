@@ -183,7 +183,7 @@ public class GamePanel extends JPanel{
             //System.out.println("color");
              c=randColor();
               //c=Color.RED;
-             // g.setColor(c);////
+             // g.setColor(c);/////
             // g.setColor(c);
            
             
