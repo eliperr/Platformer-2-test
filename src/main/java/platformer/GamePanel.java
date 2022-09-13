@@ -81,6 +81,7 @@ public class GamePanel extends JPanel{
   public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+        
          //paintSquare(g);
            //System.out.println(up);
         if (img!=null) 
@@ -209,7 +210,7 @@ public class GamePanel extends JPanel{
   public void Left()
   {
      
-     x-=10;
+     //x-=10;
      left=true;
     //repaint();
    
@@ -217,7 +218,7 @@ public class GamePanel extends JPanel{
   
   public void Right()
   {
-      x+=10;
+      //x+=10;
       right=true;
       //repaint();
   }
@@ -225,7 +226,7 @@ public class GamePanel extends JPanel{
   public void Up()
   {
      
-      y-=10; 
+      //y-=10; 
       up=true;
         //System.out.println(up);
       //repaint();
@@ -235,10 +236,37 @@ public class GamePanel extends JPanel{
   
   public void Down()
   {
-     y+=10;
+     //y+=10;
      down=true;
       //System.out.println(down);
      //repaint();
+  }
+  
+  public void setPosition()
+  {
+      if (right)
+      {
+          x+=10;
+          
+      }
+      
+      if (left)
+      {
+          
+          x-=10;
+          
+      }
+      
+      if (down)
+      {
+          y+=10;
+      }
+      
+      if (up)
+      {
+         y-=10; 
+      }
+      
   }
 /*public void  reset()
 {
@@ -250,6 +278,15 @@ public class GamePanel extends JPanel{
     
     
 }*/
+  
+ public void update()
+ { 
+     setPosition();
+     animate();
+  
+  
+     
+ }
   
  public void stopUp()
  {

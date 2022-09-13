@@ -18,6 +18,7 @@ public class GameRunner implements Runnable{
   private GameFrame gameFrame;
  private Thread gameThread;
   private int frames=0;
+  private int updates=0;
   
   public GameRunner()
      {
@@ -39,31 +40,57 @@ public class GameRunner implements Runnable{
     
     public void run()
     {
-        long now=System.nanoTime();
-        long lastFrame=0;
-        long frameUpdate=0;
+        
+        long lastCheck=0;
+        
+        //need to separate UPS and FPS
+        //UPS is updates-all game logic
+        //FPS is rendering animation 
+        //otherwise is rendering is too slow logic could be slowed down 
         double timePerFrame=1000000000/FPS;
+        double timePerUpdate=1000000000/FPS*3;
+        double previousTime=0;
+         long currentTime;
+        
+        double deltaU=0;
+        double deltaF=0;
+        
         while(!gameover)
+           
+        {  currentTime=System.nanoTime();
+            deltaU+=(currentTime-previousTime)/timePerUpdate;
+            deltaF+=(currentTime-previousTime)/timePerFrame;
             
-        { now=System.nanoTime();     //check if frame has passed if so repaint gamepanel
-            if (now-lastFrame>=timePerFrame)
-            {
-                gamePanel.repaint();
-                lastFrame=now;
-                frames++;  
-               
+            previousTime=currentTime; 
+           
+            if (deltaU>=1)
+            {   gamePanel.update();
+                updates++;
+                
+                deltaU--;
             }
             
-            //FPS counter
-            if (now-frameUpdate>=1000000000) //if second pass update frames
-                {System.out.println(frames);
-                frames=0;
-                frameUpdate=now;
+            if (deltaF>=1)
+            {
+                gamePanel.repaint(); 
+                frames++;
+                deltaF--;
+            }
+            
+            
+           
+            //FPS & UPS counter
+            if (System.currentTimeMillis()-lastCheck>=1000) //if second pass update frames
+                {System.out.println("frames : " + frames + " updates: " + updates);
+                lastCheck=System.currentTimeMillis();
+                frames=0;//System.out.println(0);
+                updates=0;
+                
                 }
             
         }
         
-      //count frames
+     
       
     }
 }
