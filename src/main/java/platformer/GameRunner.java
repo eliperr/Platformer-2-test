@@ -81,7 +81,7 @@ public class GameRunner implements Runnable{
            
             //FPS & UPS counter
             if (System.currentTimeMillis()-lastCheck>=1000) //if second pass update frames
-                {System.out.println("frames : " + frames + " updates: " + updates);
+                {//System.out.println("frames : " + frames + " updates: " + updates);
                 lastCheck=System.currentTimeMillis();
                 frames=0;//System.out.println(0);
                 updates=0;

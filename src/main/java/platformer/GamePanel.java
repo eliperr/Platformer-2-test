@@ -44,38 +44,35 @@ public class GamePanel extends JPanel{
    private int ycount=1;
    private int n=5;//number of frames in animation 
    private int tick=5;
-       
-        
+   public Player player;
+    
     public GamePanel()
     {  
-      
+         this.player= new Player(); 
+        
        addKeyListener(new keyboardInputs(this));
     size=new Dimension (1200,800);
      
        setPreferredSize(size);
-         uploadImg();
+         //uploadImg();
          
     }
     
+    
+    public void update()
+ { 
+     x=player.setPosition(x,y)[0];
+     y=player.setPosition(x,y)[1];
+     //x=player.getX();
+    // y=player.getY();
+     player.animate();
+    // System.out.println("update");
   
-   private void uploadImg()
-   {
-      // InputStream stream=getClass().getResourceAsStream("/bluediamond.png");
-       //for some reason this way of getting an image doesn't work regardless of the path 
-       
-       
-       try
-       {
-          img=ImageIO.read(new File("images/player_sprites.png")); 
-          //img= ImageIO.read(stream); 
-       }
-       catch (IOException e)
-               {
-                   e.printStackTrace();
-                   
-               }
-       
-   }
+  
+     
+ }
+  
+  
 
    
   public void paintComponent(Graphics g)
@@ -84,90 +81,19 @@ public class GamePanel extends JPanel{
         
          //paintSquare(g);
            //System.out.println(up);
-        if (img!=null) 
-        {
+       
           
-          
-              //int xcount=5;
-              //int ycount=0;
-              //BufferedImage sub=img.getSubimage(xcount*64, ycount*40, 64, 40);
-             BufferedImage sub= animate();
+             BufferedImage sub= player.animate();
               g.drawImage(sub,x,y, sub.getWidth()*2, sub.getHeight()*2, null); 
                
-        
-         //g.drawImage(img.getSubimage(0,0, 71,120), x,y, null);
-              //subImg=img.getSubimage(70, 120, 72, 120);
-              //g.drawImage(subImg, 300,300, null);
-            //g.drawImage(img.getSubimage(0,0, 100,100), 0,0, 1000, 1000, null);
-        }
-       
-        //95 (width), 112 (height)
+     
+         
         
     }
  
   //starting with stand still
   //change ycount for different frames of animation,0 for standstill
- public BufferedImage animate()
-          
-     {
-         
-      
-       
-      long now=System.currentTimeMillis();
-      
-      long time=10000/FPS;
-      
-      
-      
-     
-      animationTime=now-prevTime;
-      
-   
-      
-  
-      if ( animationTime>=time)
-      {
-          
-          if (up) //countUp>0 does using this create a better animation or not?
-            {
-            n=3;
-         
-            ycount=2;
-          //FPS=120;
-            }
-          else if (left || right)
-          {
-              ycount=1;
-          
-              n=6;
-              //System.out.println("moving");
-              
-          }
-          else //idle
-          {
-              n=5;
-              
-              ycount=0;
-              //FPS=60;
-          }
-          
-        animationFrame=(animationFrame+1)%n;
-       
-      
-           prevTime=System.currentTimeMillis();
-           
-           
-                
-      }
-      
-      
-       BufferedImage sub=img.getSubimage(animationFrame*64, ycount*40, 64, 40);
-     
-      
-      return sub;
-         
-         
-     }
+ 
  
   public void paintSquare(Graphics g)
   {
@@ -206,111 +132,7 @@ public class GamePanel extends JPanel{
   }
   
   
- 
-  public void Left()
-  {
-     
-     //x-=10;
-     left=true;
-    //repaint();
-   
-  }
-  
-  public void Right()
-  {
-      //x+=10;
-      right=true;
-      //repaint();
-  }
-  
-  public void Up()
-  {
-     
-      //y-=10; 
-      up=true;
-        //System.out.println(up);
-      //repaint();
-     
-      
-  }
-  
-  public void Down()
-  {
-     //y+=10;
-     down=true;
-      //System.out.println(down);
-     //repaint();
-  }
-  
-  public void setPosition()
-  {
-      if (right)
-      {
-          x+=10;
-          
-      }
-      
-      if (left)
-      {
-          
-          x-=10;
-          
-      }
-      
-      if (down)
-      {
-          y+=10;
-      }
-      
-      if (up)
-      {
-         y-=10; 
-      }
-      
-  }
-/*public void  reset()
-{
-    
-    left=false;
-    right=false;
-    up=false;
-    
-    
-    
-}*/
-  
- public void update()
- { 
-     setPosition();
-     animate();
-  
-  
-     
- }
-  
- public void stopUp()
- {
-     up=false;
-       //System.out.println(up);
-     
- }
- 
- public void stopDown()
- {
-     down=false;
-     //System.out.println(down);
-     
- }
- public void stopRight()
- {
-     right=false;
-     
- }
- public void stopLeft()
- {
-    left=false;
-     
- }
+
  
   public static Color randColor()
   {  int red=(int) (255*Math.random());

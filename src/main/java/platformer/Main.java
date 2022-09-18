@@ -19,7 +19,7 @@ public class Main  {
         
     GameRunner game=new GameRunner();
     game.startGameLoop();
-    //Thread gameThread=new Thread(game);
-        //gameThread.start();
+ Thread gameThread=new Thread(game);
+        gameThread.start();
 }
 }

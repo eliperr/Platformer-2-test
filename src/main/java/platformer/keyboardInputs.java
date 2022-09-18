@@ -13,7 +13,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 public class keyboardInputs implements KeyListener{
    
-    private GamePanel panel;
+   private GamePanel panel;
    
     
     
@@ -34,17 +34,17 @@ public class keyboardInputs implements KeyListener{
         
         switch(e.getKeyCode()){
             case 38:   //up
-            panel.stopUp();
+            panel.player.stopUp();
             break;
             case 37: //left
-            panel.stopLeft();
+            panel.player.stopLeft();
             break;
            
             case 39: //right
-            panel.stopRight();
+            panel.player.stopRight();
             break;
             case 40://down
-             panel.stopDown();
+             panel.player.stopDown();
              break;
     }
     }
@@ -55,17 +55,17 @@ public class keyboardInputs implements KeyListener{
         
         switch(e.getKeyCode()){
             case 38:   //up
-            panel.Up();
+            panel.player.Up();
             break;
             case 37: //left
-            panel.Left();
+            panel.player.Left();
             break;
            
             case 39: //right
-            panel.Right();
+            panel.player.Right();
             break;
             case 40://down
-             panel.Down();
+             panel.player.Down();
              break;
            /// default:
                 //panel.reset();
